@@ -21,24 +21,6 @@ public class View : MonoBehaviour
         _inputField.onEndEdit.AddListener(OnEdit);
     }
 
-    private void OnEdit(string text)
-    {
-        _presenter.OnEdit(text);
-        ChangeStringValue(text);
-    }
-
-    private void OnClickMinusButton()
-    {
-        _presenter.OnClickMinusButton();
-        ChangeIntValue(_presenter.Model.Value);
-    }
-
-    private void OnClickPlusButton()
-    {
-        _presenter.OnClickPlusButton();
-        ChangeIntValue(_presenter.Model.Value);
-    }
-
     private void OnDisable()
     {
         _plusBotton.onClick.RemoveListener(OnClickPlusButton);
@@ -46,13 +28,28 @@ public class View : MonoBehaviour
         _inputField.onEndEdit.RemoveListener(OnEdit);
     }
     
-    private void ChangeIntValue(int value)
+    public void ChangeIntValue(int value)
     {
         _intValue.text = value.ToString();
     }
 
-    private void ChangeStringValue(string value)
+    public void ChangeStringValue(string value)
     {
         _stringValue.text = value;
+    }
+    
+    private void OnEdit(string text)
+    {
+        _presenter.Edit(text);
+    }
+
+    private void OnClickMinusButton()
+    {
+        _presenter.ClickMinusButton();
+    }
+
+    private void OnClickPlusButton()
+    {
+        _presenter.ClickPlusButton();
     }
 }
