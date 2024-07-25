@@ -1,22 +1,56 @@
-public class Model
+using System;
+
+public class Model : IDisposable
 {
     private int _value;
     private string _textValue;
+    private View _view;
 
-    public int Value => _value;
+    public event Action<int> IntValueChanged;
+    public event Action<string> StringValueChanged;
 
-    public void AddValue()
+    public Model(int value, string textValue, View view)
     {
-        _value++;
-    }
+        _value = value;
+        _textValue = textValue;
+        _view = view;
 
-    public void RemoveValue()
+        _view.IntChanged += OnIntChanged;
+        _view.StringValueChanged += OnStringChanged;
+    }
+    
+    public void Dispose()
     {
-        _value--;
+        _view.IntChanged -= OnIntChanged;
+        _view.StringValueChanged -= OnStringChanged;
     }
-
-    public void ChangeText(string text)
+    
+    private void OnStringChanged(string text)
     {
         _textValue = text;
     }
+
+    private void OnIntChanged(int value)
+    {
+        _value = value;
+    }
+
+    private void AddValue()
+    {
+        _value++;
+        IntValueChanged?.Invoke(_value);
+    }
+
+    private void RemoveValue()
+    {
+        _value--;
+        IntValueChanged?.Invoke(_value);
+    }
+
+    private void ChangeText(string text)
+    {
+        _textValue = text;
+        StringValueChanged?.Invoke(_textValue);
+    }
+    
 }
