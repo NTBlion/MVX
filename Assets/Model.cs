@@ -1,56 +1,39 @@
 using System;
+using UniRx;
+using UnityEngine;
 
-public class Model : IDisposable
+public class Model
 {
-    private int _value;
-    private string _textValue;
+    private ReactiveProperty<int> _value;
+    private ReactiveProperty<string> _stringValue;
     private View _view;
-
-    public event Action<int> IntValueChanged;
-    public event Action<string> StringValueChanged;
-
-    public Model(int value, string textValue, View view)
+    
+    public Model(ReactiveProperty<int> value, ReactiveProperty<string> stringValue, View view)
     {
         _value = value;
-        _textValue = textValue;
+        _stringValue = stringValue;
         _view = view;
-
-        _view.IntChanged += OnIntChanged;
-        _view.StringValueChanged += OnStringChanged;
-    }
-    
-    public void Dispose()
-    {
-        _view.IntChanged -= OnIntChanged;
-        _view.StringValueChanged -= OnStringChanged;
-    }
-    
-    private void OnStringChanged(string text)
-    {
-        _textValue = text;
     }
 
-    private void OnIntChanged(int value)
-    {
-        _value = value;
-    }
+    public ReactiveProperty<int> Value => _value;
+    public ReactiveProperty<string> StringValue => _stringValue;
 
     private void AddValue()
     {
-        _value++;
-        IntValueChanged?.Invoke(_value);
+        _value.Value++;
+        _view.ValueChanged(_value.Value);
     }
 
     private void RemoveValue()
     {
-        _value--;
-        IntValueChanged?.Invoke(_value);
+        _value.Value--;
+        _view.ValueChanged(_value.Value);
     }
 
     private void ChangeText(string text)
     {
-        _textValue = text;
-        StringValueChanged?.Invoke(_textValue);
+        _stringValue.Value = text;
+        _view.ViewStringChanged(_stringValue.Value);
     }
     
 }

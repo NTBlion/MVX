@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
 public class MainScript : MonoBehaviour
@@ -9,9 +10,12 @@ public class MainScript : MonoBehaviour
     [SerializeField] private View _view;
     private Model _model;
 
+    private ReactiveProperty<int> _zero = new ReactiveProperty<int>();
+    private ReactiveProperty<string> _empty = new ReactiveProperty<string>();
+
     private void Awake()
     {
-        _model = new Model(0, "", _view);
+        _model = new Model(_zero, _empty, _view);
         _viewModel.Init(_model);
     }
 }
