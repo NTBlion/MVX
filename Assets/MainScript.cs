@@ -16,6 +16,7 @@ public class MainScript : MonoBehaviour
     private void Awake()
     {
         _model = new Model(_zero, _empty, _view);
-        _viewModel.Init(_model);
+        _viewModel = new ViewModel(_model);
+        _view.Init(_viewModel);
     }
 }

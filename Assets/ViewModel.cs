@@ -6,12 +6,8 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ViewModel : MonoBehaviour
+public class ViewModel
 {
-    [SerializeField] private Button _plusButton;
-    [SerializeField] private Button _minusButton;
-    [SerializeField] private TMP_InputField _inputField;
-
     private ReactiveProperty<int> _viewIntValue;
     private ReactiveProperty<string> _viewStringValue;
 
@@ -20,7 +16,7 @@ public class ViewModel : MonoBehaviour
     public ReactiveProperty<int> ViewIntValue => _viewIntValue;
     public ReactiveProperty<string> ViewStringValue => _viewStringValue;
 
-    public void Init(Model model)
+    public ViewModel(Model model)
     {
         _model = model;
 
@@ -28,32 +24,18 @@ public class ViewModel : MonoBehaviour
 
         _model.StringValue.Subscribe(x => _viewStringValue = _model.StringValue);
     }
-
-    private void OnEnable()
-    {
-        _plusButton.onClick.AddListener(OnPlusClicked);
-        _minusButton.onClick.AddListener(OnMinusClicked);
-        _inputField.onValueChanged.AddListener(OnInputChanged);
-    }
-
-    private void OnDisable()
-    {
-        _plusButton.onClick.RemoveListener(OnPlusClicked);
-        _minusButton.onClick.RemoveListener(OnMinusClicked);
-        _inputField.onValueChanged.RemoveListener(OnInputChanged);
-    }
-
-    private void OnPlusClicked()
+    
+    public void AddValue()
     {
         _viewIntValue.Value++;
     }
 
-    private void OnMinusClicked()
+    public void RemoveValue()
     {
         _viewIntValue.Value--;
     }
 
-    private void OnInputChanged(string text)
+    public void EditInput(string text)
     {
         _viewStringValue.Value = text;
     }
