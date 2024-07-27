@@ -5,6 +5,8 @@ public class Model
 
     public int Value => _value;
 
+    public string TextValue => _textValue;
+
     public void AddValue()
     {
         _value++;

@@ -14,10 +14,12 @@ public class View : MonoBehaviour
     [SerializeField] private TMP_InputField _inputField;
 
     private Controller _controller;
+    private Model _model;
 
-    public void Init(Controller controller)
+    public void Init(Controller controller, Model model)
     {
         _controller = controller;
+        _model = model;
     }
     
     private void OnEnable()
@@ -33,15 +35,11 @@ public class View : MonoBehaviour
         _minusBotton.onClick.RemoveListener(OnClickMinusButton);
         _inputField.onEndEdit.RemoveListener(OnEdit);
     }
-    
-    public void ChangeIntValue(int value)
-    {
-        _intValue.text = value.ToString();
-    }
 
-    public void ChangeStringValue(string value)
+    public void UpdateView()
     {
-        _stringValue.text = value;
+        _intValue.text = _model.Value.ToString();
+        _stringValue.text = _model.TextValue;
     }
 
     private void OnEdit(string text)

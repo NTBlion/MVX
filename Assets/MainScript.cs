@@ -11,6 +11,6 @@ public class MainScript : MonoBehaviour
         _model = new Model();
         _controller = new Controller();
         _controller.Init(_view, _model);
-        _view.Init(_controller);
+        _view.Init(_controller, _model);
     }
 }

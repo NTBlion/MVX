@@ -12,18 +12,18 @@ public class Controller
     public void Edit(string text)
     {
         _model.ChangeText(text);
-        _view.ChangeStringValue(text);
+        _view.UpdateView();
     }
 
     public void ClickMinusButton()
     {
         _model.RemoveValue();
-        _view.ChangeIntValue(_model.Value);
+        _view.UpdateView();
     }
 
     public void ClickPlusButton()
     {
         _model.AddValue();
-        _view.ChangeIntValue(_model.Value);
+        _view.UpdateView();
     }
 }
