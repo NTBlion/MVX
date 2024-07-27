@@ -592,9 +592,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5f62b3028cec604dbd6fcfdf3bf23d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _plusBotton: {fileID: 320486872}
-  _minusBotton: {fileID: 1085150358}
-  _inputField: {fileID: 1439307747}
 --- !u!4 &425738723
 Transform:
   m_ObjectHideFlags: 0
@@ -1804,6 +1801,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 210cf29a9ef776844a5f3d2a0305031a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _plusBotton: {fileID: 320486872}
+  _minusBotton: {fileID: 1085150358}
+  _inputField: {fileID: 1439307747}
   _intValue: {fileID: 53159428}
   _stringValue: {fileID: 280556564}
 --- !u!4 &2117714150

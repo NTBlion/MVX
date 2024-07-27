@@ -1,14 +1,7 @@
-using System;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Presenter : MonoBehaviour
 {
-    [SerializeField] private Button _plusBotton;
-    [SerializeField] private Button _minusBotton;
-    [SerializeField] private TMP_InputField _inputField;
-    
     private View _view;
     private Model _model;
 
@@ -16,35 +9,25 @@ public class Presenter : MonoBehaviour
     {
         _view = view;
         _model = model;
+
+        _view.PlusButtonClicked += OnPlusButtonClicked;
+        _view.MinusButtonClicked += OnMinusButtonClicked;
+        _view.InputFieldEdited += OnInputFieldEdited;
     }
-    
-    private void OnEnable()
-    {
-        _plusBotton.onClick.AddListener(OnClickPlusButton);
-        _minusBotton.onClick.AddListener(OnClickMinusButton);
-        _inputField.onEndEdit.AddListener(OnEdit);
-    }
-    
-    private void OnDisable()
-    {
-        _plusBotton.onClick.RemoveListener(OnClickPlusButton);
-        _minusBotton.onClick.RemoveListener(OnClickMinusButton);
-        _inputField.onEndEdit.RemoveListener(OnEdit);
-    }
-    
-    private void OnEdit(string text)
+
+    private void OnInputFieldEdited(string text)
     {
         _model.ChangeText(text);
         _view.ChangeStringValue(text);
     }
 
-    private void OnClickMinusButton()
+    private void OnMinusButtonClicked()
     {
         _model.RemoveValue();
         _view.ChangeIntValue(_model.Value);
     }
 
-    private void OnClickPlusButton()
+    private void OnPlusButtonClicked()
     {
         _model.AddValue();
         _view.ChangeIntValue(_model.Value);
